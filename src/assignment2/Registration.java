@@ -308,6 +308,11 @@ public class Registration extends javax.swing.JFrame {
 
         btnUpdate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnClear.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnClear.setText("Clear");
@@ -319,6 +324,11 @@ public class Registration extends javax.swing.JFrame {
 
         btnDelete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -432,6 +442,8 @@ public class Registration extends javax.swing.JFrame {
         Connection con1;
         PreparedStatement insert;
         PreparedStatement select;
+        PreparedStatement update;
+        PreparedStatement delete;
         
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         
@@ -570,6 +582,113 @@ public class Registration extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        
+        String FName = txtFName.getText();
+        String LName = txtLName.getText();
+        
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+        String DOB = dateformat.format(txtBday.getDate());
+        
+        String Address = txtAddress.getText();
+        String Email = txtEmail.getText();
+        String MPhone = txtMP.getText();
+        String HPhone = txtHP.getText();
+        String PName = txtPName.getText();
+        String NIC = txtNic.getText();
+        String ConNum = txtConNum.getText();
+        String Gender = "";
+        
+        if(radioM.isSelected()){
+            Gender = "male";
+        }
+        if(radioF.isSelected()){
+            Gender = "female";
+        }
+        
+        int regNo = Integer.parseInt(txtRegNo.getText());
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost/skillsreg","root","");
+            update = con1.prepareStatement("update registration set firstName=?,lastName=?,dateOfBirth=?,gender=?,address=?,email=?,mobilePhone=?,homePhone=?,parentName=?,nic=?,contactNo=? where regNo=?");
+            update.setInt(12, regNo);
+            update.setString(1, FName);
+            update.setString(2, LName);
+            update.setString(3, DOB);
+            update.setString(4, Gender);
+            update.setString(5, Address);
+            update.setString(6, Email);
+            update.setString(7, MPhone);
+            update.setString(8, HPhone);
+            update.setString(9, PName);
+            update.setString(10, NIC);
+            update.setString(11, ConNum);
+            update.executeUpdate();
+            
+            JOptionPane.showMessageDialog(this, "Record Updated Successfully");
+            
+                txtRegNo.requestFocus();
+                
+                txtFName.setText("");
+                txtLName.setText("");
+                txtAddress.setText("");
+                txtEmail.setText("");
+                txtMP.setText("");
+                txtHP.setText("");
+                txtPName.setText("");
+                txtNic.setText("");
+                txtConNum.setText("");
+                txtBday.setDate(null);
+                txtRegNo.setText("");
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        
+        int regNo = Integer.parseInt(txtRegNo.getText());
+        
+        int yes_no = JOptionPane.showConfirmDialog(this,"Are you sure,Do you realy want to delete this record?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if(yes_no==JOptionPane.YES_OPTION){
+            
+         try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost/skillsreg","root","");
+            delete = con1.prepareStatement("delete from registration where regNo=?");
+            delete.setInt(1, regNo);
+            delete.executeUpdate();
+            
+            JOptionPane.showMessageDialog(this, "Record Deleted Successfully");
+       
+                txtRegNo.requestFocus();
+                
+                txtFName.setText("");
+                txtLName.setText("");
+                txtAddress.setText("");
+                txtEmail.setText("");
+                txtMP.setText("");
+                txtHP.setText("");
+                txtPName.setText("");
+                txtNic.setText("");
+                txtConNum.setText("");
+                txtBday.setDate(null);
+                txtRegNo.setText("");
+            
+            
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }           
+            
+        }
+        
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
