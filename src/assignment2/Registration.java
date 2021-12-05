@@ -8,6 +8,7 @@ package assignment2;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -37,8 +38,6 @@ public class Registration extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblLogout = new javax.swing.JLabel();
-        lblExit = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -75,18 +74,12 @@ public class Registration extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student Registration - Skills International");
         setBackground(new java.awt.Color(204, 255, 255));
-
-        lblLogout.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblLogout.setForeground(new java.awt.Color(0, 0, 204));
-        lblLogout.setText("Logout");
-
-        lblExit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblExit.setForeground(new java.awt.Color(0, 51, 204));
-        lblExit.setText("Exit");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel3.setText("Skills International");
@@ -100,6 +93,11 @@ public class Registration extends javax.swing.JFrame {
 
         btnSearch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
@@ -313,6 +311,11 @@ public class Registration extends javax.swing.JFrame {
 
         btnClear.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnDelete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnDelete.setText("Delete");
@@ -370,6 +373,26 @@ public class Registration extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        btnExit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExit.setForeground(new java.awt.Color(0, 51, 204));
+        btnExit.setText("Exit");
+        btnExit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 51, 204));
+        jButton1.setText("Log Out");
+        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -378,12 +401,14 @@ public class Registration extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblExit, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblLogout)
-                        .addGap(99, 99, 99)
+                        .addComponent(jButton1)
+                        .addGap(70, 70, 70)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 95, Short.MAX_VALUE)))
+                        .addGap(0, 115, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExit)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -392,11 +417,11 @@ public class Registration extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLogout))
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblExit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(btnExit)
                 .addContainerGap())
         );
 
@@ -406,6 +431,7 @@ public class Registration extends javax.swing.JFrame {
     
         Connection con1;
         PreparedStatement insert;
+        PreparedStatement select;
         
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         
@@ -456,6 +482,95 @@ public class Registration extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        int yes_no = JOptionPane.showConfirmDialog(this,"Are you sure,Do you realy want to exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if(yes_no==JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            JOptionPane.showMessageDialog(this,"user LogOut Successfull", "Information", JOptionPane.INFORMATION_MESSAGE);
+            Login lg2 = new Login();
+            lg2.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        
+        txtFName.setText("");
+        txtLName.setText("");
+        txtAddress.setText("");
+        txtEmail.setText("");
+        txtMP.setText("");
+        txtHP.setText("");
+        txtPName.setText("");
+        txtNic.setText("");
+        txtConNum.setText("");
+        txtBday.setDate(null);
+        radioM.setSelected(false);
+        radioF.setSelected(false);
+        txtRegNo.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        
+        
+        
+        try {
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost/skillsreg","root","");
+            select = con1.prepareStatement("select firstName,lastName,dateOfBirth,gender,address,email,mobilePhone,homePhone,parentName,nic,contactNo from registration where regNo=?");
+            int regNo = Integer.parseInt(txtRegNo.getText());
+            select.setInt(1, regNo);
+            ResultSet rs = select.executeQuery();
+            if(rs.next()== false){
+                
+                JOptionPane.showMessageDialog(this, "Sorry. Incorrect Registration Number..!" ,"Error", JOptionPane.ERROR_MESSAGE);
+                txtRegNo.requestFocus();
+                
+                txtFName.setText("");
+                txtLName.setText("");
+                txtAddress.setText("");
+                txtEmail.setText("");
+                txtMP.setText("");
+                txtHP.setText("");
+                txtPName.setText("");
+                txtNic.setText("");
+                txtConNum.setText("");
+                txtBday.setDate(null);
+                txtRegNo.setText("");
+                
+            }else{
+                
+                txtFName.setText(rs.getString("firstName"));
+                txtLName.setText(rs.getString("lastName"));
+                txtAddress.setText(rs.getString("address"));
+                txtEmail.setText(rs.getString("email"));
+                txtMP.setText(rs.getString("mobilePhone"));
+                txtHP.setText(rs.getString("homePhone"));
+                txtPName.setText(rs.getString("parentName"));
+                txtNic.setText(rs.getString("nic"));
+                txtConNum.setText(rs.getString("contactNo"));
+                txtBday.setDate(rs.getDate("dateOfBirth"));
+                
+                String gen = rs.getString("gender");
+                if("male".equals(gen)){
+                    radioM.doClick();
+                }else{
+                    radioF.doClick();
+                }
+            }
+     
+
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnSearchActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -494,9 +609,11 @@ public class Registration extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -515,8 +632,6 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblExit;
-    private javax.swing.JLabel lblLogout;
     private javax.swing.JRadioButton radioF;
     private javax.swing.JRadioButton radioM;
     private javax.swing.JTextArea txtAddress;
